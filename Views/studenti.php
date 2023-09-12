@@ -53,6 +53,9 @@
 <div class="container">
     <h1>Lista Studenta</h1>
 
+    <?php
+    if(!empty($studenti)) {
+    ?>
     <table>
         <tr>
             <th>Ime</th>
@@ -71,11 +74,14 @@
                 </form>
               </td>';
             echo '</tr>';
-        }
-        ?>
-    </table>
+        }?>
+        </table><?php
+    } else {
+        echo "<h2>Trenutno nema studenta!</h2>";
+    }
+    ?>
 
-    <form action="/controllers/StudentController.php" method="POST">
+    <form action="Controllers/StudentController.php" method="POST">
         <div class="input-group">
             <label for="ime">Ime:</label>
             <input type="text" name="ime" id="ime" required>

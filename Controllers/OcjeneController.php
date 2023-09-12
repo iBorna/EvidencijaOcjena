@@ -26,11 +26,10 @@ class OcjeneController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ocjena_id'])) {
             $ocjena_id = $_POST['ocjena_id'];
             $result = $this->ocjeneModel->ukloni($ocjena_id);
-            echo $result;
             if ($result) {
-                header("Location: ../");
+                header("Location:" . $_SERVER['HTTP_REFERER']);
             } else {
-                echo "Greška prilikom dodavanje ocjene!";
+                echo "Greška prilikom brisanja ocjene!";
             }
         }
 

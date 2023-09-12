@@ -66,46 +66,54 @@
     <h1>Informacije o studentu</h1>
     <p><strong>Ime:</strong> <?php echo $ime . ' ' . $prezime; ?></p>
     <p><strong>ID studenta:</strong> <?php echo $student_id; ?></p>
-    <form action="/controllers/StudentController.php" method="POST">
+    <form action="Controllers/StudentController.php" method="POST">
         <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
         <button class="delete-button" type="submit">Obriši studenta</button>
     </form>
 
     <h2>Ocjene</h2>
-    <table>
-        <tr>
-            <th>Predmet</th>
-            <th>Ocjena</th>
-            <th>Opcije</th>
-        </tr>
+
 
         <?php
-        foreach ($ocjene as $ocjena) {
-            echo '<tr>';
-            echo '    <td>' . $ocjena['predmet'] . '</td>';
-            echo '    <td>' . $ocjena['ocjena'] . '</td>';
-            echo '    <td>
-                    <form action="/controllers/OcjeneController.php" method="POST">
-                        <input type="hidden" name="ocjena_id" value="'. $ocjena['id'] .'">
-                        <button class="delete-button" type="submit">Ukloni</button>
-                    </form>
-                  </td>';
-            echo '</tr>';
+        if(!empty($ocjene)) {
+            ?>
+        <table>
+            <tr>
+                <th>Predmet</th>
+                <th>Ocjena</th>
+                <th>Opcije</th>
+            </tr>
+            <?php
+            foreach ($ocjene as $ocjena) {
+                echo '<tr>';
+                echo '    <td>' . $ocjena['predmet'] . '</td>';
+                echo '    <td>' . $ocjena['ocjena'] . '</td>';
+                echo '    <td>
+                        <form action="Controllers/OcjeneController.php" method="POST">
+                            <input type="hidden" name="ocjena_id" value="'. $ocjena['id'] .'">
+                            <button class="delete-button" type="submit">Ukloni</button>
+                        </form>
+                      </td>';
+                echo '</tr>';
+            }?>
+        </table><?php
+        } else {
+            echo "<h2>Trenutno nema ocjena!</h2>";
         }
         ?>
 
-    </table>
 
-    <form action="/controllers/OcjeneController.php" method="POST">
+
+    <form action="Controllers/OcjeneController.php" method="POST">
         <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
         <label for="predmet">Predmet:</label>
         <input type="text" name="predmet" id="predmet" required><br>
         <label for="ocjena">Ocjena:</label>
-        <input type="number" name="ocjena" id="ocjena" required><br>
+        <input type="number" min="1" max="5" name="ocjena" id="ocjena" required><br>
         <button type="submit">Dodaj ocjenu</button>
     </form>
 
-    <form action="/" method="GET">
+    <form action="index.php" method="GET">
         <button type="submit">Povratak na popis studenata</button>
     </form>
 </div>

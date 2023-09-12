@@ -29,10 +29,10 @@ class StudentController
                 exit;
             }
             $prezime = $this -> studentiModel -> prezime($student_id);
-            include('views/ocjene.php');
+            include('Views/ocjene.php');
         } else {
             $studenti = $this -> studentiModel -> dohvati();
-            include('views/studenti.php');
+            include('Views/studenti.php');
         }
 
     }
