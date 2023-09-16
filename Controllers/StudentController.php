@@ -38,7 +38,9 @@ class StudentController
     }
 
     public function control() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ime']) && isset($_POST['prezime'])) {
+
+        //DODAJ STUDENTA
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
             $ime = $_POST['ime'];
             $prezime = $_POST['prezime'];
 
@@ -49,7 +51,8 @@ class StudentController
             }
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id']) ) {
+        //UKLONI STUDENTA
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete']) ) {
             $student_id = $_POST['student_id'];
 
             if ($this->studentiModel->ukloni($student_id)) {

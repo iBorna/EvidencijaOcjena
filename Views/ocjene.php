@@ -2,64 +2,7 @@
 <html>
 <head>
     <title>Student - <?php echo $ime . ' ' . $prezime; ?></title>
-    <style>
-        .container {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 24px;
-        }
-        h2 {
-            font-size: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .delete-button {
-            background-color: #ff6666;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        .delete-button:hover {
-            background-color: #ff3333;
-        }
-        form {
-            margin-top: 10px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 5px;
-            margin-top: 5px;
-        }
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="Style/Simple.css">
 </head>
 <body>
 <div class="container">
@@ -68,7 +11,7 @@
     <p><strong>ID studenta:</strong> <?php echo $student_id; ?></p>
     <form action="Controllers/StudentController.php" method="POST">
         <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-        <button class="delete-button" type="submit">Obriši studenta</button>
+        <button class="delete-button" name="delete" type="submit">Obriši studenta</button>
     </form>
 
     <h2>Ocjene</h2>
@@ -87,13 +30,16 @@
             foreach ($ocjene as $ocjena) {
                 echo '<tr>';
                 echo '    <td>' . $ocjena['predmet'] . '</td>';
-                echo '    <td>' . $ocjena['ocjena'] . '</td>';
-                echo '    <td>
-                        <form action="Controllers/OcjeneController.php" method="POST">
-                            <input type="hidden" name="ocjena_id" value="'. $ocjena['id'] .'">
-                            <button class="delete-button" type="submit">Ukloni</button>
-                        </form>
-                      </td>';
+                echo '    <td>';
+                echo '        <form action="Controllers/OcjeneController.php" method="POST">';
+                echo '            <input type="hidden" name="ocjena_id" value="'. $ocjena['id'] .'">';
+                echo '            <input type="number" min="1" max="5" name="nova_ocjena" value="'. $ocjena['ocjena'] .'" required>';
+                echo '    </td>';
+                echo '    <td>';
+                echo '            <button class="edit-button" type="submit" name="edit">Uredi</button>';
+                echo '            <button class="delete-button" type="submit" name="delete">Ukloni</button>';
+                echo '        </form>';
+                echo '    </td>';
                 echo '</tr>';
             }?>
         </table><?php
@@ -104,18 +50,22 @@
 
 
 
-    <form action="Controllers/OcjeneController.php" method="POST">
-        <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
-        <label for="predmet">Predmet:</label>
-        <input type="text" name="predmet" id="predmet" required><br>
-        <label for="ocjena">Ocjena:</label>
-        <input type="number" min="1" max="5" name="ocjena" id="ocjena" required><br>
-        <button type="submit">Dodaj ocjenu</button>
-    </form>
+    <div>
+        <form action="Controllers/OcjeneController.php" method="POST">
+            <input type="hidden" name="student_id" value="15">
+            <div class="custom-form-container">
+                <label for="predmet" class="custom-label">Predmet:</label>
+                <input type="text" name="predmet" id="predmet" class="custom-input" required="">
+                <label for="ocjena" class="custom-label">Ocjena:</label>
+                <input type="number" min="1" max="5" name="ocjena" id="ocjena" class="custom-input" required="">
+                <button class="blue-button custom-button" type="submit" name="add">Dodaj ocjenu</button>
+            </div>
+        </form>
 
-    <form action="index.php" method="GET">
-        <button type="submit">Povratak na popis studenata</button>
-    </form>
+        <form action="index.php" method="GET">
+            <button class="blue-button" type="submit">Povratak na popis studenata</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>

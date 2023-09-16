@@ -51,4 +51,17 @@ class OcjeneModel
             return false;
         }
     }
+
+    public function uredi($ocjena_id, $nova_ocjena) {
+        $query = "UPDATE " . $this->table . " SET ocjena = :nova_ocjena WHERE id = :ocjena_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':nova_ocjena', $nova_ocjena);
+        $stmt->bindParam(':ocjena_id', $ocjena_id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -23,7 +23,8 @@ class OcjeneController
 
     public function control()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ocjena_id'])) {
+        //UKLANJANJE OCJENE
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete']) ) {
             $ocjena_id = $_POST['ocjena_id'];
             $result = $this->ocjeneModel->ukloni($ocjena_id);
             if ($result) {
@@ -33,7 +34,8 @@ class OcjeneController
             }
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['predmet']) && isset($_POST['ocjena']) && isset($_POST['student_id'])) {
+        //DODAVANJE OCJENE STUDENTU
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add']) ) {
             $predmet = $_POST['predmet'];
             $ocjena = $_POST['ocjena'];
             $student_id = $_POST['student_id'];
@@ -42,6 +44,18 @@ class OcjeneController
                 header("Location: ../student.php?student_id=" . $student_id);
             } else {
                 echo "Greška prilikom dodavanje ocjene!";
+            }
+        }
+
+        // UREĐIVANJE OCJENE
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit']) ) {
+            $ocjena_id = $_POST['ocjena_id'];
+            $nova_ocjena = $_POST['nova_ocjena'];
+
+            if ($this->ocjeneModel->uredi($ocjena_id, $nova_ocjena)) {
+                header("Location:" . $_SERVER['HTTP_REFERER']);
+            } else {
+                echo "Greška prilikom uređivanja ocjene!";
             }
         }
     }
