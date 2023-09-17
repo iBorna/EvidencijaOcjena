@@ -28,19 +28,19 @@
             </tr>
             <?php
             foreach ($ocjene as $ocjena) {
-                echo '<tr>';
-                echo '    <td>' . $ocjena['predmet'] . '</td>';
-                echo '    <td>';
-                echo '        <form action="Controllers/OcjeneController.php" method="POST">';
-                echo '            <input type="hidden" name="ocjena_id" value="'. $ocjena['id'] .'">';
-                echo '            <input type="number" min="1" max="5" name="nova_ocjena" value="'. $ocjena['ocjena'] .'" required>';
-                echo '    </td>';
-                echo '    <td>';
-                echo '            <button class="edit-button" type="submit" name="edit">Uredi</button>';
-                echo '            <button class="delete-button" type="submit" name="delete">Ukloni</button>';
-                echo '        </form>';
-                echo '    </td>';
-                echo '</tr>';
+                echo '<tr>
+                    <td>' . $ocjena['predmet'] . '</td>
+                    <td>
+                        <form action="Controllers/OcjeneController.php" method="POST">
+                            <input type="hidden" name="ocjena_id" value="'. $ocjena['id'] .'">
+                            <input type="number" min="1" max="5" name="nova_ocjena" value="'. $ocjena['ocjena'] .'" required>
+                    </td>
+                    <td>
+                            <button class="edit-button" type="submit" name="edit">Uredi</button>
+                            <button class="delete-button" type="submit" name="delete">Ukloni</button>
+                        </form>
+                    </td>
+                </tr>';
             }?>
         </table><?php
         } else {
@@ -52,8 +52,8 @@
 
     <div>
         <form action="Controllers/OcjeneController.php" method="POST">
-            <input type="hidden" name="student_id" value="15">
             <div class="custom-form-container">
+                <input type="hidden" name="student_id" value="<?php echo $student_id?>">
                 <label for="predmet" class="custom-label">Predmet:</label>
                 <input type="text" name="predmet" id="predmet" class="custom-input" required="">
                 <label for="ocjena" class="custom-label">Ocjena:</label>

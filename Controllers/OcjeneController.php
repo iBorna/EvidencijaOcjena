@@ -41,7 +41,7 @@ class OcjeneController
             $student_id = $_POST['student_id'];
 
             if ($this->ocjeneModel->dodaj($predmet, $ocjena, $student_id)) {
-                header("Location: ../student.php?student_id=" . $student_id);
+                header("Location:" . $_SERVER['HTTP_REFERER']);
             } else {
                 echo "Greška prilikom dodavanje ocjene!";
             }
